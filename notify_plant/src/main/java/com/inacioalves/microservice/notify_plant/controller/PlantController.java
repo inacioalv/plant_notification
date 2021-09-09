@@ -48,7 +48,7 @@ public class PlantController {
 	 }
 	 
 	 @PutMapping("update/{id}")
-	 public ResponseEntity<Void> UpdateCliente(@RequestBody Plant plant,@PathVariable Long id){
+	 public ResponseEntity<Void> UpdateUser(@RequestBody Plant plant,@PathVariable Long id){
 		 	plant.setId(id);
 			plantService.updateById(plant);
 			return ResponseEntity.noContent().build();

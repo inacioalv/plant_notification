@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.inacioalves.microservice.notify_plant.dto.MessageResponseDto;
 import com.inacioalves.microservice.notify_plant.dto.PlantDto;
 import com.inacioalves.microservice.notify_plant.exeption.PlantNotFoundExeption;
-import com.inacioalves.microservice.notify_plant.maper.PlantMapper;
+import com.inacioalves.microservice.notify_plant.mapper.PlantMapper;
 import com.inacioalves.microservice.notify_plant.model.Plant;
 import com.inacioalves.microservice.notify_plant.repository.PlantRepository;
 
