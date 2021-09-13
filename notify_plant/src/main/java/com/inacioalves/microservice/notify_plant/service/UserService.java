@@ -1,4 +1,5 @@
-package com.inacioalves.microservice.user_plant.service;
+package com.inacioalves.microservice.notify_plant.service;
+
 
 
 import java.util.List;
@@ -6,12 +7,15 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.inacioalves.microservice.user_plant.dto.MessageResponseDto;
-import com.inacioalves.microservice.user_plant.dto.UserDto;
-import com.inacioalves.microservice.user_plant.exeption.UserNotFoundExeption;
-import com.inacioalves.microservice.user_plant.mapper.UserMapper;
-import com.inacioalves.microservice.user_plant.model.User;
-import com.inacioalves.microservice.user_plant.repository.UserRepository;
+import com.inacioalves.microservice.notify_plant.dto.MessageResponseDto;
+import com.inacioalves.microservice.notify_plant.dto.UserDto;
+import com.inacioalves.microservice.notify_plant.exeption.objectNotFoundException;
+import com.inacioalves.microservice.notify_plant.mapper.UserMapper;
+import com.inacioalves.microservice.notify_plant.model.Plant;
+import com.inacioalves.microservice.notify_plant.model.User;
+import com.inacioalves.microservice.notify_plant.repository.UserRepository;
+
+
 
 @Service
 public class UserService {
@@ -41,15 +45,22 @@ public class UserService {
 				.collect(Collectors.toList());
 	}
 	
-	public UserDto findById(Long id) throws UserNotFoundExeption {
+	public UserDto findById(Long id) throws objectNotFoundException {
 		User User =verifyIfExists(id);
 		
 		return userMapper.tpDto(User);
 	}
 	
+	public List<Plant> findByPlant(Long id) throws objectNotFoundException{
+		User user =verifyIfExists(id);
+		
+		return user.getPlant();
+		
+	}
+	
 
 
-	public void deleteById(Long id) throws UserNotFoundExeption {
+	public void deleteById(Long id) throws objectNotFoundException {
 		verifyIfExists(id);
 		
 		repository.deleteById(id);
@@ -62,9 +73,9 @@ public class UserService {
 	}
 	
 	
-	private User verifyIfExists(Long id) throws UserNotFoundExeption {
+	private User verifyIfExists(Long id) throws objectNotFoundException {
 		return repository.findById(id)
-				.orElseThrow(() -> new UserNotFoundExeption(id));
+				.orElseThrow(() -> new objectNotFoundException("Plant not found with ID:"+id));
 	}
 	
 	

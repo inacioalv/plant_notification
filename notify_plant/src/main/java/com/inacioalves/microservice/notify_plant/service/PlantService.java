@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.inacioalves.microservice.notify_plant.dto.MessageResponseDto;
 import com.inacioalves.microservice.notify_plant.dto.PlantDto;
-import com.inacioalves.microservice.notify_plant.exeption.PlantNotFoundExeption;
+import com.inacioalves.microservice.notify_plant.exeption.objectNotFoundException;
 import com.inacioalves.microservice.notify_plant.mapper.PlantMapper;
 import com.inacioalves.microservice.notify_plant.model.Plant;
 import com.inacioalves.microservice.notify_plant.repository.PlantRepository;
@@ -41,7 +41,7 @@ public class PlantService {
 				.collect(Collectors.toList());
 	}
 	
-	public PlantDto findById(Long id) throws PlantNotFoundExeption {
+	public PlantDto findById(Long id) throws objectNotFoundException {
 		Plant plant =verifyIfExists(id);
 		
 		return plantMapper.tpDto(plant);
@@ -49,7 +49,7 @@ public class PlantService {
 	
 
 
-	public void deleteById(Long id) throws PlantNotFoundExeption {
+	public void deleteById(Long id) throws objectNotFoundException {
 		verifyIfExists(id);
 		
 		plantRepository.deleteById(id);
@@ -62,9 +62,9 @@ public class PlantService {
 	}
 	
 	
-	private Plant verifyIfExists(Long id) throws PlantNotFoundExeption {
+	private Plant verifyIfExists(Long id) throws objectNotFoundException {
 		return plantRepository.findById(id)
-				.orElseThrow(() -> new PlantNotFoundExeption(id));
+				.orElseThrow(() -> new objectNotFoundException("Plant not found with ID:"+id));
 	}
 	
 	

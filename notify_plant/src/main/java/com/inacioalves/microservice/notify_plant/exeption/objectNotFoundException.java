@@ -4,13 +4,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code = HttpStatus.NOT_FOUND)
-public class PlantNotFoundExeption extends Exception {
+public class objectNotFoundException extends Exception  {
 
+	
 	private static final long serialVersionUID = 1L;
 	
+	public objectNotFoundException(String msg) {
+		super(msg);
+	}
 	
-	public PlantNotFoundExeption(Long id) {
-		super("Plant not found with ID:"+id);
+	public objectNotFoundException(String msg, Throwable causa) {
+		super(msg,causa);
 	}
 
 }
