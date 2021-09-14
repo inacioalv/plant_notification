@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
+import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,13 +20,15 @@ import lombok.NoArgsConstructor;
 @Data@AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table(name="user_plant") 
 public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String name;
-	@OneToMany(mappedBy="user_Id")
+	private String emailFrom;
+	@OneToMany(mappedBy="user")
 	private List<Plant> plant;
 
 }

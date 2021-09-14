@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -21,6 +22,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name="plants") 
 public class Plant {
 	
 	@Id
@@ -30,5 +32,5 @@ public class Plant {
 	private LocalDate water;
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JsonIgnore
-	private User user_Id;
+	private User user;
 }

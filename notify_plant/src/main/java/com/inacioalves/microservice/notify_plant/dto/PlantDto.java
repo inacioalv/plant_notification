@@ -19,6 +19,6 @@ public class PlantDto {
 	private Long id;
 	private String typePlants;
 	private LocalDate water;
-	private User user_Id;
+	private User user;
 
 }
