@@ -1,5 +1,7 @@
 package com.inacioalves.microservice.notify_plant.service;
 
+
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,31 +14,29 @@ import com.inacioalves.microservice.notify_plant.mapper.PlantMapper;
 import com.inacioalves.microservice.notify_plant.model.Plant;
 import com.inacioalves.microservice.notify_plant.repository.PlantRepository;
 
-
 @Service
 public class PlantService {
 	
-	private PlantRepository plantRepository;
+	private PlantRepository repository;
 	
 	private final PlantMapper plantMapper = PlantMapper.INSTANCE;
-	
-	public PlantService(PlantRepository plantRepository) {
+
+	public PlantService(PlantRepository repository) {
 		super();
-		this.plantRepository = plantRepository;
+		this.repository = repository;
 	}
 
-
-	public MessageResponseDto createPlant(PlantDto plantDto) {
+	public MessageResponseDto createplant(PlantDto plantDto) {
 		Plant plantSave = plantMapper.toModel(plantDto);
 		
-		Plant savedPlant = plantRepository.save(plantSave);
-		return createMessageResponse(savedPlant.getId(), "Created plant with Id:");
+		Plant savedplant = repository.save(plantSave);
+		return createMessageResponse(savedplant.getId(), "Created plant with Id:");
 	}
 	
 	public List<PlantDto> listAll(){
-		List<Plant> allPlant = plantRepository.findAll();
+		List<Plant> allplant = repository.findAll();
 		
-		return allPlant.stream()
+		return allplant.stream()
 				.map(plantMapper::tpDto)
 				.collect(Collectors.toList());
 	}
@@ -47,23 +47,35 @@ public class PlantService {
 		return plantMapper.tpDto(plant);
 	}
 	
+//	public PlantDto findByUse(String name,String emailFrom) {
+//		
+//		return plantMapper.tpDto(name,emailFrom);
+//	}
+//	
+//	public List<Plant> findByPlant(Long id) throws objectNotFoundException{
+//		plant plant =verifyIfExists(id);
+//		
+//		return plant.getPlant();
+//		
+//	}
+	
 
 
 	public void deleteById(Long id) throws objectNotFoundException {
 		verifyIfExists(id);
 		
-		plantRepository.deleteById(id);
+		repository.deleteById(id);
 	}
 	
 
 	public Plant updateById(Plant plant)  {
-		return  plantRepository.save(plant);
+		return  repository.save(plant);
 		
 	}
 	
 	
 	private Plant verifyIfExists(Long id) throws objectNotFoundException {
-		return plantRepository.findById(id)
+		return repository.findById(id)
 				.orElseThrow(() -> new objectNotFoundException("Plant not found with ID:"+id));
 	}
 	
@@ -74,7 +86,7 @@ public class PlantService {
 				.message(message+id)
 				.build();
 	}
-	
-	
+
+
 
 }

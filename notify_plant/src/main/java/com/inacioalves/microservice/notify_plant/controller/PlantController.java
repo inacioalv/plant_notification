@@ -1,5 +1,6 @@
 package com.inacioalves.microservice.notify_plant.controller;
 
+
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -24,24 +25,25 @@ import com.inacioalves.microservice.notify_plant.service.PlantService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+
 @RestController
 @RequestMapping("/plant")
-@Api(value = "Api Rest Plant")
+@Api(value = "Api Rest plant")
 @CrossOrigin(origins = "*")
 public class PlantController {
 	
-	private final PlantService plantService;
+	private PlantService plantService;
 
 	public PlantController(PlantService plantService) {
 		super();
 		this.plantService = plantService;
 	}
-	
+
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@ApiOperation(value = "Create plant")
-	public MessageResponseDto createPlant(@RequestBody PlantDto plantDto) {
-		return plantService.createPlant(plantDto);
+	public MessageResponseDto createplant(@RequestBody PlantDto PlantDto) {
+		return plantService.createplant(PlantDto);
 	}
 	
 	@GetMapping("/all")
@@ -55,10 +57,24 @@ public class PlantController {
 	public PlantDto findById(@PathVariable Long id) throws objectNotFoundException {
 		 return plantService.findById(id);
 	 }
+	
+//	@GetMapping("/name/{name}/emailFrom/{emailFrom}")
+//	@ApiOperation(value = "Return plant by plant")
+//	public PlantDto findByplant(@PathVariable String name,@PathVariable String emailFrom) throws objectNotFoundException {
+//		 return plantService.findByUse(name,emailFrom);
+//	 }
+	
+	
+	
+//	@GetMapping("/{id}/plant")
+//	@ApiOperation(value = "Return plant by Id")
+//	public List<Plant> findByPlant(@PathVariable Long id) throws objectNotFoundException {
+//		return plantService.findByPlant(id);
+//	}
 	 
 	 @PutMapping("update/{id}")
 	 @ApiOperation(value = "Update plant")
-	 public ResponseEntity<Void> UpdateUser(@RequestBody Plant plant,@PathVariable Long id){
+	 public ResponseEntity<Void> Updateplant(@RequestBody Plant plant,@PathVariable Long id){
 		 	plant.setId(id);
 			plantService.updateById(plant);
 			return ResponseEntity.noContent().build();
@@ -71,5 +87,7 @@ public class PlantController {
 		 plantService.deleteById(id);
 		 
 	 }
+	
+	
 
 }

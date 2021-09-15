@@ -1,10 +1,12 @@
 package com.inacioalves.microservice.notify_plant.mapper;
 
+
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 import com.inacioalves.microservice.notify_plant.dto.PlantDto;
 import com.inacioalves.microservice.notify_plant.model.Plant;
+
 
 @Mapper
 public interface PlantMapper {
@@ -13,5 +15,4 @@ public interface PlantMapper {
 	
 	Plant toModel(PlantDto plantDto);
 	PlantDto tpDto(Plant plant);
-	
 }
