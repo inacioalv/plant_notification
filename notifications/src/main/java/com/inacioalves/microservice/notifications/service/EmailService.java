@@ -31,7 +31,7 @@ public class EmailService {
 		
 		Notify notifyConversion = notifExchangeProxy.retrieveExchangeValue(id);
 		emailModel.setEmailFrom(notifyConversion.getEmailFrom());
-		
+		emailModel.setText(notifyConversion.getTypePlants()+" precisar ser aguada");
 		
 		try {
 			SimpleMailMessage message = new SimpleMailMessage();
