@@ -2,7 +2,7 @@ package com.inacioalves.microservice.notify_plant.model;
 
 
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 //import java.util.List;
 
@@ -31,6 +31,6 @@ public class Plant {
 	private String name;
 	private String emailFrom;
 	private String typePlants;
-	private LocalDate water;
+	private LocalDateTime  water;
 
 }
