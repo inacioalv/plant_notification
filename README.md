@@ -27,6 +27,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - [netflix-eureka](https://spring.io/projects/spring-cloud-sleuth)
 - [Postgresql](https://www.postgresql.org/)
 - [lombok](https://projectlombok.org/)
+- [swagger](https://swagger.io/)
 
 
 ## 💻 Projeto
