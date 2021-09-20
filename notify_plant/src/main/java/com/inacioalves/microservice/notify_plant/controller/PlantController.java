@@ -3,6 +3,8 @@ package com.inacioalves.microservice.notify_plant.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -33,6 +35,8 @@ import io.swagger.annotations.ApiOperation;
 public class PlantController {
 	
 	private PlantService plantService;
+	
+	private Logger logger = LoggerFactory.getLogger(PlantController.class);
 
 	public PlantController(PlantService plantService) {
 		super();
@@ -49,12 +53,14 @@ public class PlantController {
 	@GetMapping("/all")
 	@ApiOperation(value = "Return list plant")
 	public List<PlantDto> listAll(){
+		logger.info("retrieveExchangeValue called with");
 		return plantService.listAll();
 	}
 	
 	@GetMapping("/{id}")
 	@ApiOperation(value = "Return plant by Id")
 	public PlantDto findById(@PathVariable Long id) throws objectNotFoundException {
+		logger.info("retrieveExchangeValue called with {}",id);
 		 return plantService.findById(id);
 	 }
 	

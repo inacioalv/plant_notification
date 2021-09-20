@@ -22,5 +22,6 @@ public class ApiGatewayConfiguration {
 				.route(p -> p.path("/plant-conversion/**")//URL
 						.uri("lb://notifications"))//name application.properties
 				.build();
+		
 	}
 }
