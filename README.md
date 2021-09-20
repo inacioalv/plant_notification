@@ -57,8 +57,12 @@ mvn spring-boot:run
 ## Após executar o comando acima, basta apenas abrir o seguinte endereço e visualizar a execução do projeto:
 
 ```
-http://localhost:8000
-http://localhost:8100
+http://localhost:8000/plant
+http://localhost:8000/plant/{id}
+http://localhost:8000/plant/all
+http://localhost:8000/plant/update/{id}
+http://localhost:8100/sending-email/id/{id}
+http://localhost:8100/plant-conversion/id/{id}
 ```
 
 
