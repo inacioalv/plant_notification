@@ -37,7 +37,7 @@ public class PlantController {
 	private PlantService plantService;
 	
 	private Logger logger = LoggerFactory.getLogger(PlantController.class);
-
+	
 	public PlantController(PlantService plantService) {
 		super();
 		this.plantService = plantService;
@@ -64,19 +64,7 @@ public class PlantController {
 		 return plantService.findById(id);
 	 }
 	
-//	@GetMapping("/name/{name}/emailFrom/{emailFrom}")
-//	@ApiOperation(value = "Return plant by plant")
-//	public PlantDto findByplant(@PathVariable String name,@PathVariable String emailFrom) throws objectNotFoundException {
-//		 return plantService.findByUse(name,emailFrom);
-//	 }
-	
-	
-	
-//	@GetMapping("/{id}/plant")
-//	@ApiOperation(value = "Return plant by Id")
-//	public List<Plant> findByPlant(@PathVariable Long id) throws objectNotFoundException {
-//		return plantService.findByPlant(id);
-//	}
+
 	 
 	 @PutMapping("update/{id}")
 	 @ApiOperation(value = "Update plant")
@@ -93,7 +81,21 @@ public class PlantController {
 		 plantService.deleteById(id);
 		 
 	 }
-	
+	 
+//		@GetMapping("/name/{name}/emailFrom/{emailFrom}")
+//		@ApiOperation(value = "Return plant by plant")
+//		public PlantDto findByplant(@PathVariable String name,@PathVariable String emailFrom) throws objectNotFoundException {
+//			 return plantService.findByUse(name,emailFrom);
+//		 }
+		
+		
+		
+//		@GetMapping("/{id}/plant")
+//		@ApiOperation(value = "Return plant by Id")
+//		public List<Plant> findByPlant(@PathVariable Long id) throws objectNotFoundException {
+//			return plantService.findByPlant(id);
+//		}
+	 
 	
 
 }

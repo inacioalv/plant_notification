@@ -2,9 +2,7 @@ package com.inacioalves.microservice.notify_plant.service;
 
 
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,11 +30,6 @@ public class PlantService {
 	public MessageResponseDto createplant(PlantDto plantDto) {
 		Plant plantSave = plantMapper.toModel(plantDto);
 
-		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-		Date date = new Date();
-		plantDto.setWater(date);
-		System.out.println(dateFormat.format(plantDto.getWater()));
-		
 		Plant savedplant = repository.save(plantSave);
 		return createMessageResponse(savedplant.getId(), "Created plant with Id:");
 	}
