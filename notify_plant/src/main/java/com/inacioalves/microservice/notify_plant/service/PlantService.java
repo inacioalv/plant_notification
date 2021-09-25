@@ -28,15 +28,18 @@ public class PlantService {
 		this.repository = repository;
 	}
 
-	public MessageResponseDto createplant(PlantDto plantDto) throws objectNotFoundException {
-		Plant plantSave = plantMapper.toModel(plantDto);
-		Optional<Plant> usuario =  Optional.empty();
-		if(usuario.isPresent()) {
-			throw new objectNotFoundException("planta não encontrada");
-		}
+//	public MessageResponseDto createplant(PlantDto plantDto) throws objectNotFoundException {
+//		Plant plantSave = plantMapper.toModel(plantDto);
+//		
+//		Plant savedplant = repository.save(plantSave);
+//		return createMessageResponse(savedplant.getId(), "Created plant with Id:");
+//	}
+	
 
-		Plant savedplant = repository.save(plantSave);
-		return createMessageResponse(savedplant.getId(), "Created plant with Id:");
+	public PlantDto createPlant(PlantDto plantDto)  {
+		Plant plantSave = plantMapper.toModel(plantDto);
+		Plant savePlant= repository.save(plantSave);
+		return plantMapper.tpDto(savePlant);
 	}
 	
 	public List<PlantDto> listAll(){
