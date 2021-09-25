@@ -43,11 +43,18 @@ public class PlantController {
 		this.plantService = plantService;
 	}
 
+//	@PostMapping
+//	@ResponseStatus(value = HttpStatus.CREATED)
+//	@ApiOperation(value = "Create plant")
+//	public MessageResponseDto createplant(@RequestBody PlantDto PlantDto) throws objectNotFoundException {
+//		return plantService.createplant(PlantDto);
+//	}
+//	
 	@PostMapping
-	@ResponseStatus(value = HttpStatus.CREATED)
+	@ResponseStatus(HttpStatus.CREATED)
 	@ApiOperation(value = "Create plant")
-	public MessageResponseDto createplant(@RequestBody PlantDto PlantDto) throws objectNotFoundException {
-		return plantService.createplant(PlantDto);
+	public PlantDto createPlant(@RequestBody PlantDto PlantDto) {
+		return plantService.createPlant(PlantDto);
 	}
 	
 	@GetMapping("/all")
