@@ -46,7 +46,7 @@ public class PlantController {
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@ApiOperation(value = "Create plant")
-	public MessageResponseDto createplant(@RequestBody PlantDto PlantDto) {
+	public MessageResponseDto createplant(@RequestBody PlantDto PlantDto) throws objectNotFoundException {
 		return plantService.createplant(PlantDto);
 	}
 	
@@ -64,7 +64,6 @@ public class PlantController {
 		 return plantService.findById(id);
 	 }
 	
-
 	 
 	 @PutMapping("update/{id}")
 	 @ApiOperation(value = "Update plant")
@@ -81,6 +80,7 @@ public class PlantController {
 		 plantService.deleteById(id);
 		 
 	 }
+	 
 	 
 //		@GetMapping("/name/{name}/emailFrom/{emailFrom}")
 //		@ApiOperation(value = "Return plant by plant")

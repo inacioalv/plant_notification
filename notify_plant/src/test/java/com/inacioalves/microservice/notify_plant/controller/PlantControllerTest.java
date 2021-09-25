@@ -1,8 +1,10 @@
 package com.inacioalves.microservice.notify_plant.controller;
 
+import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
+import static io.restassured.module.mockmvc.RestAssuredMockMvc.standaloneSetup;
 import static org.mockito.Mockito.when;
-import static io.restassured.module.mockmvc.RestAssuredMockMvc.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
 
 import com.inacioalves.microservice.notify_plant.dto.PlantDto;
 import com.inacioalves.microservice.notify_plant.exeption.objectNotFoundException;
@@ -27,16 +31,35 @@ public class PlantControllerTest {
 	@MockBean
 	private PlantService plantService;
 	
+	@Autowired
+	MockMvc mvc;
+	
+	
 	@BeforeEach
 	public void setup() {
 		standaloneSetup(controller);
 	}
 	
 	@Test
-	public void deveRetornaSucesso_QuandoBuscarPlant() throws objectNotFoundException {
+	public void shouldreturnsuccess_when_searchingListplant() throws objectNotFoundException {
 		
+		when(this.plantService.listAll())
+			.thenReturn(new ArrayList<PlantDto>());
+	
+		given()
+				.accept(ContentType.JSON)
+		.when()
+				.get("/plant/all")
+		.then()
+				.statusCode(HttpStatus.OK.value());
+	}
+	
+	
+	@Test
+	public void return_success_when_searching_plantById() throws objectNotFoundException {
+
 		when(this.plantService.findById(1L))
-			.thenReturn(new PlantDto(1L,"inacio","juninhomend@gmail.com","plant",new Date()));
+		.thenReturn(extracted());
 	
 		given()
 				.accept(ContentType.JSON)
@@ -45,5 +68,19 @@ public class PlantControllerTest {
 		.then()
 				.statusCode(HttpStatus.OK.value());
 	}
+
+	static final MediaType JSON = MediaType.APPLICATION_JSON;
+
+
+	private PlantDto extracted() {
+		return new PlantDto(1L,"nome","email@gmail.com","plant",new Date());
+	}
+	
+	
+	
+	
+	
+	
+	
 
 }

@@ -4,6 +4,7 @@ package com.inacioalves.microservice.notify_plant.service;
 
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -27,8 +28,12 @@ public class PlantService {
 		this.repository = repository;
 	}
 
-	public MessageResponseDto createplant(PlantDto plantDto) {
+	public MessageResponseDto createplant(PlantDto plantDto) throws objectNotFoundException {
 		Plant plantSave = plantMapper.toModel(plantDto);
+		Optional<Plant> usuario =  Optional.empty();
+		if(usuario.isPresent()) {
+			throw new objectNotFoundException("planta não encontrada");
+		}
 
 		Plant savedplant = repository.save(plantSave);
 		return createMessageResponse(savedplant.getId(), "Created plant with Id:");
@@ -44,23 +49,9 @@ public class PlantService {
 	
 	public PlantDto findById(Long id) throws objectNotFoundException {
 		Plant plant =verifyIfExists(id);
-		
 		return plantMapper.tpDto(plant);
 	}
 	
-//	public PlantDto findByUse(String name,String emailFrom) {
-//		
-//		return plantMapper.tpDto(name,emailFrom);
-//	}
-//	
-//	public List<Plant> findByPlant(Long id) throws objectNotFoundException{
-//		plant plant =verifyIfExists(id);
-//		
-//		return plant.getPlant();
-//		
-//	}
-	
-
 
 	public void deleteById(Long id) throws objectNotFoundException {
 		verifyIfExists(id);
@@ -87,6 +78,20 @@ public class PlantService {
 				.message(message+id)
 				.build();
 	}
+	
+	
+//	public PlantDto findByUse(String name,String emailFrom) {
+//	
+//	return plantMapper.tpDto(name,emailFrom);
+//}
+//
+//public List<Plant> findByPlant(Long id) throws objectNotFoundException{
+//	plant plant =verifyIfExists(id);
+//	
+//	return plant.getPlant();
+//	
+//}
+
 
 
 
