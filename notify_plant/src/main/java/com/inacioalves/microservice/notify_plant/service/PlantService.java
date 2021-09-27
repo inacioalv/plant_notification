@@ -4,12 +4,10 @@ package com.inacioalves.microservice.notify_plant.service;
 
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.inacioalves.microservice.notify_plant.dto.MessageResponseDto;
 import com.inacioalves.microservice.notify_plant.dto.PlantDto;
 import com.inacioalves.microservice.notify_plant.exeption.objectNotFoundException;
 import com.inacioalves.microservice.notify_plant.mapper.PlantMapper;
@@ -28,13 +26,6 @@ public class PlantService {
 		this.repository = repository;
 	}
 
-//	public MessageResponseDto createplant(PlantDto plantDto) throws objectNotFoundException {
-//		Plant plantSave = plantMapper.toModel(plantDto);
-//		
-//		Plant savedplant = repository.save(plantSave);
-//		return createMessageResponse(savedplant.getId(), "Created plant with Id:");
-//	}
-	
 
 	public PlantDto createPlant(PlantDto plantDto)  {
 		Plant plantSave = plantMapper.toModel(plantDto);
@@ -72,14 +63,6 @@ public class PlantService {
 	private Plant verifyIfExists(Long id) throws objectNotFoundException {
 		return repository.findById(id)
 				.orElseThrow(() -> new objectNotFoundException("Plant not found with ID:"+id));
-	}
-	
-	
-	private MessageResponseDto createMessageResponse(Long id,String message) {
-		return MessageResponseDto
-				.builder()
-				.message(message+id)
-				.build();
 	}
 	
 	

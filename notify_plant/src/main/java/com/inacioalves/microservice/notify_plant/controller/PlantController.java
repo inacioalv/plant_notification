@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.inacioalves.microservice.notify_plant.dto.MessageResponseDto;
 import com.inacioalves.microservice.notify_plant.dto.PlantDto;
 import com.inacioalves.microservice.notify_plant.exeption.objectNotFoundException;
 import com.inacioalves.microservice.notify_plant.model.Plant;
@@ -45,13 +44,6 @@ public class PlantController {
 		this.plantService = plantService;
 	}
 
-//	@PostMapping
-//	@ResponseStatus(value = HttpStatus.CREATED)
-//	@ApiOperation(value = "Create plant")
-//	public MessageResponseDto createplant(@RequestBody PlantDto PlantDto) throws objectNotFoundException {
-//		return plantService.createplant(PlantDto);
-//	}
-//	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	@ApiOperation(value = "Create plant")

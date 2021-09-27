@@ -1,7 +1,8 @@
 package com.inacioalves.microservice.notify_plant.exeption;
 
+import java.io.Serializable;
 
-public class objectNotFoundException extends RuntimeException   {
+public class objectNotFoundException extends RuntimeException implements Serializable   {
 
 	
 	private static final long serialVersionUID = 1L;
