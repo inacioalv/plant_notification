@@ -32,6 +32,7 @@ public class PlantDto {
     @NotBlank(message = "Tipo da planta é obrigatório")
 	private String typePlants;
     @NotBlank(message = "Tipo da water é obrigatório")
+    @Length(max = 5, min = 4)
 	private String  water;
 
 	
