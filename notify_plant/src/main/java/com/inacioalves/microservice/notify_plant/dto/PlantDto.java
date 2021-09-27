@@ -1,8 +1,11 @@
 package com.inacioalves.microservice.notify_plant.dto;
 
 
-import java.time.LocalDateTime;
-import java.util.Date;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.Length;
 
 //import java.util.List;
 
@@ -20,10 +23,16 @@ import lombok.NoArgsConstructor;
 public class PlantDto {
 	
 	private Long id;
+	@NotBlank(message = "Nome é obrigatório")
+	@Length(max = 80, min = 10)
 	private String name;
+	@NotBlank(message = "Email é obrigatório")
+	@Email(message = "Informe um email correto")
 	private String emailFrom;
+    @NotBlank(message = "Tipo da planta é obrigatório")
 	private String typePlants;
-	private Date  water;
+    @NotBlank(message = "Tipo da water é obrigatório")
+	private String  water;
 
 	
 	

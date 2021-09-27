@@ -5,7 +5,6 @@ import static io.restassured.module.mockmvc.RestAssuredMockMvc.standaloneSetup;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -73,7 +72,7 @@ public class PlantControllerTest {
 
 
 	private PlantDto extracted() {
-		return new PlantDto(1L,"nome","email@gmail.com","plant",new Date());
+		return new PlantDto(1L,"nome","email@gmail.com","plant","14:54");
 	}
 	
 	

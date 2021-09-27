@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.inacioalves.microservice.notifications.config.NotifExchangeProxy;
 import com.inacioalves.microservice.notifications.dto.EmailDto;
 import com.inacioalves.microservice.notifications.model.EmailModel;
 import com.inacioalves.microservice.notifications.service.EmailService;
@@ -29,10 +28,6 @@ public class EmailController {
 	
 	@Autowired
 	EmailService emailService;
-	
-	@Autowired
-	private NotifExchangeProxy notifExchangeProxy;
-
 	
 	@PostMapping(value = "/sending-email/id/{id}")
 	@ApiOperation(value = "Post email")

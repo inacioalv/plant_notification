@@ -2,7 +2,6 @@ package com.inacioalves.microservice.notify_plant.model;
 
 
 
-import java.util.Date;
 
 //import java.util.List;
 
@@ -32,6 +31,6 @@ public class Plant {
 	private String name;
 	private String emailFrom;
 	private String typePlants;
-	private Date  water;
+	private String  water;
 
 }

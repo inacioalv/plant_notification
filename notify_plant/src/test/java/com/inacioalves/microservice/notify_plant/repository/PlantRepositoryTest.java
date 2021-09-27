@@ -2,7 +2,6 @@ package com.inacioalves.microservice.notify_plant.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Date;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -109,7 +108,7 @@ public class PlantRepositoryTest {
 						.name("nome")
 						.emailFrom("email@gmail.com")
 						.typePlants("plant")
-						.water(new Date())
+						.water("14:53")
 						.build();
 	}
 

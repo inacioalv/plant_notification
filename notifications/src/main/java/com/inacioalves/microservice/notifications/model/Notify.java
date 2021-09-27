@@ -1,6 +1,5 @@
 package com.inacioalves.microservice.notifications.model;
 
-import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,7 +20,7 @@ public class Notify {
 	private String name;
 	private String emailFrom;
 	private String typePlants;
-	private Date water;
+	private String water;
 	
 
 }

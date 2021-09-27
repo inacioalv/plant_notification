@@ -3,6 +3,8 @@ package com.inacioalves.microservice.notify_plant.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -53,7 +55,7 @@ public class PlantController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	@ApiOperation(value = "Create plant")
-	public PlantDto createPlant(@RequestBody PlantDto PlantDto) {
+	public PlantDto createPlant(@Valid @RequestBody PlantDto PlantDto) {
 		return plantService.createPlant(PlantDto);
 	}
 	
