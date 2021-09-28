@@ -68,9 +68,10 @@ public class PlantController {
 	 
 	 @PutMapping("update/{id}")
 	 @ApiOperation(value = "Update plant")
-	 public ResponseEntity<Void> Updateplant(@RequestBody Plant plant,@PathVariable Long id){
-		 	plant.setId(id);
-			plantService.updateById(plant);
+	 @ResponseStatus(HttpStatus.OK)
+	 public ResponseEntity<Void> Updateplant(@RequestBody PlantDto plantDto,@PathVariable Long id){
+		 	plantDto.setId(id);
+			plantService.updateById(plantDto,id);
 			return ResponseEntity.noContent().build();
 		}
 	 

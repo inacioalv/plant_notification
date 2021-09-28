@@ -26,19 +26,19 @@ public class PlantServiceTest {
 	@MockBean
 	PlantRepository plantRepository;
 	
-	@Test
-	public void deveAtualizarUmaPlanta() {
-		Plant plant = PlantRepositoryTest.createPlant();
-		plant.setId(1L);
-		plant.setEmailFrom("email@gmail.com");
-		
-		when(plantRepository.save(plant)).thenReturn(plant);
-		
-		plantService.updateById(plant);
-		
-		verify(plantRepository, times(1)).save(plant);
-		
-	}
+//	@Test
+//	public void deveAtualizarUmaPlanta() {
+//		Plant plant = PlantRepositoryTest.createPlant();
+//		plant.setId(1L);
+//		plant.setEmailFrom("email@gmail.com");
+//		
+//		when(plantRepository.save(plant)).thenReturn(plant);
+//		
+//		plantService.updateById(plant);
+//		
+//		verify(plantRepository, times(1)).save(plant);
+//		
+//	}
 	
 	
 
