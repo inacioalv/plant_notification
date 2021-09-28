@@ -54,11 +54,11 @@ public class PlantService {
 	}
 	
 
-	public Plant updateById(PlantDto plantDto,Long id)  {
+	public PlantDto updateById(PlantDto plantDto,Long id)  {
 		verifyIfExists(id);
 		Plant plantSave = plantMapper.toModel(plantDto);
 		Plant savePlant= repository.save(plantSave);
-		return  repository.save(savePlant);
+		return  plantMapper.tpDto(savePlant);
 		
 	}
 	

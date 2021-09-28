@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.inacioalves.microservice.notify_plant.dto.PlantDto;
 import com.inacioalves.microservice.notify_plant.exeption.objectNotFoundException;
-import com.inacioalves.microservice.notify_plant.model.Plant;
 import com.inacioalves.microservice.notify_plant.service.PlantService;
 
 import io.swagger.annotations.Api;
