@@ -186,6 +186,37 @@ public class PlantServiceTest {
 						()-> plantService.deleteById(expectedDeletedPlantDto.getId()));
 	}
 	
+	@Test
+	public void WhenupdateItsCalledwithValihemustthenupdateTheplant() {
+		//given
+		PlantDto expectedPlantDto = createPlant();
+		expectedPlantDto.setId(1L);
+		Plant expectedSavedPlant = plantMapper.toModel(expectedPlantDto);
+				
+		//when
+		when(plantRepository
+					.findById(expectedSavedPlant.getId()))
+					.thenReturn(Optional.of(expectedSavedPlant));
+				
+		when(plantRepository
+					.save(expectedSavedPlant))
+					.thenReturn(expectedSavedPlant);
+		//then
+		PlantDto createPlantDto = 
+						plantService.updateById(expectedPlantDto,1L);
+				
+				
+				assertThat(createPlantDto.getId(), 
+						is(equalTo(createPlantDto.getId())));
+				
+				assertThat(createPlantDto.getName(), 
+						is(equalTo(createPlantDto.getName())));
+				
+				assertThat(createPlantDto.getEmailTo(), 
+						is(equalTo(createPlantDto.getEmailTo())));
+		
+	}
+	
 	
 	
 	
