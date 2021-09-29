@@ -172,7 +172,7 @@ public class PlantServiceTest {
 	}
 	
 	@Test
-	public void  WhenExclusionITISCalledWithmistakeatIdentificationThenTurnbacknotfound() {
+	public void WhenExclusionAndCalledWithmistakeattheIdentificationThenReturnsnotfound() {
 		//given
 		PlantDto expectedDeletedPlantDto = createPlant();
 	
@@ -214,6 +214,22 @@ public class PlantServiceTest {
 				
 				assertThat(createPlantDto.getEmailTo(), 
 						is(equalTo(createPlantDto.getEmailTo())));
+		
+	}
+	
+	@Test
+	public void WhenUpdateAndCalledWithmistakeattheIdentificationThenReturnsnotfound() {
+		//given
+		PlantDto expectedDeletedPlantDto = createPlant();
+			
+		//when
+		when(plantRepository
+					.findById(expectedDeletedPlantDto.getId()))
+					.thenReturn(Optional.empty());
+				
+		//then
+		assertThrows(objectNotFoundException.class, 
+							()-> plantService.updateById(expectedDeletedPlantDto,expectedDeletedPlantDto.getId()));
 		
 	}
 	
