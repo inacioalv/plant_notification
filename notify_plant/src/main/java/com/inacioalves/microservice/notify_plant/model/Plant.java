@@ -26,10 +26,10 @@ import lombok.NoArgsConstructor;
 public class Plant {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	private String emailFrom;
+	private String emailTo;
 	private String typePlants;
 	private String  water;
 

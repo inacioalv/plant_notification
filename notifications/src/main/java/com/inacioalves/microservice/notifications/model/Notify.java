@@ -18,7 +18,7 @@ public class Notify {
 	
 	private Long id;
 	private String name;
-	private String emailFrom;
+	private String emailTo;
 	private String typePlants;
 	private String water;
 	

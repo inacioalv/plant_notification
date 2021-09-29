@@ -5,7 +5,6 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
@@ -17,7 +16,7 @@ public class EmailDto {
 	private String ownerRef;
 	@NotBlank
 	@Email
-	private String emailTo;
+	private String emailFrom;
 	@NotBlank
 	private String subject;
 	

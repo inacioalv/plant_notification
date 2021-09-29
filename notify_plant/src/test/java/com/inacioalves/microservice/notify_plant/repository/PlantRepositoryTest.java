@@ -81,7 +81,7 @@ public class PlantRepositoryTest {
 		Plant plant = createPersistirThePlant();
 		
 		plant.setName("name");
-		plant.setEmailFrom("email@gmail.com");
+		plant.setEmailTo("email@gmail.com");
 		plant.setTypePlants("plant");
 		
 		plantRepository.save(plant);
@@ -89,7 +89,7 @@ public class PlantRepositoryTest {
 		Plant plantUpdated = entityManager.find(Plant.class, plant.getId());
 		
 		assertThat(plantUpdated.getName()).isEqualTo("name");
-		assertThat(plantUpdated.getEmailFrom()).isEqualTo("email@gmail.com");
+		assertThat(plantUpdated.getEmailTo()).isEqualTo("email@gmail.com");
 		assertThat(plantUpdated.getTypePlants()).isEqualTo("plant");
 		
 		
@@ -106,7 +106,7 @@ public class PlantRepositoryTest {
 	public static Plant createPlant() {
 		return Plant.builder()
 						.name("nome")
-						.emailFrom("email@gmail.com")
+						.emailTo("email@gmail.com")
 						.typePlants("plant")
 						.water("14:53")
 						.build();

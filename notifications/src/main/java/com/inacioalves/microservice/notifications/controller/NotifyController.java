@@ -40,7 +40,7 @@ public class NotifyController {
 		return new Notify(
 				notifyConversion.getId(),
 				notifyConversion.getName(),
-				notifyConversion.getEmailFrom(),
+				notifyConversion.getEmailTo(),
 				notifyConversion.getTypePlants(),
 				notifyConversion.getWater()
 				);

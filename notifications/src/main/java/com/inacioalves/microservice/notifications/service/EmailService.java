@@ -30,8 +30,15 @@ public class EmailService {
 		emailModel.setSendDateEmail(LocalDateTime.now());
 		
 		Notify notifyConversion = notifExchangeProxy.retrieveExchangeValue(id);
-		emailModel.setEmailFrom(notifyConversion.getEmailFrom());
-		emailModel.setText(notifyConversion.getTypePlants()+" precisar ser aguada");
+		emailModel.setEmailTo(notifyConversion.getEmailTo());
+		emailModel.setText(
+				"Olá "+
+				notifyConversion.getName()+
+				System.lineSeparator()+
+				"você precisa regar sua planta "+
+				notifyConversion.getTypePlants()+
+				" as "+
+				notifyConversion.getWater());
 		
 		try {
 			SimpleMailMessage message = new SimpleMailMessage();

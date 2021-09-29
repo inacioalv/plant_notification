@@ -28,7 +28,7 @@ public class PlantDto {
 	private String name;
 	@NotBlank(message = "Email é obrigatório")
 	@Email(message = "Informe um email correto")
-	private String emailFrom;
+	private String emailTo;
     @NotBlank(message = "Tipo da planta é obrigatório")
 	private String typePlants;
     @NotBlank(message = "Tipo da water é obrigatório")
