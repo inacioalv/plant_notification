@@ -171,6 +171,21 @@ public class PlantServiceTest {
 				.deleteById(expectedDeletedPlantDto.getId());
 	}
 	
+	@Test
+	public void  WhenExclusionITISCalledWithmistakeatIdentificationThenTurnbacknotfound() {
+		//given
+		PlantDto expectedDeletedPlantDto = createPlant();
+	
+		//when
+		when(plantRepository
+				   .findById(expectedDeletedPlantDto.getId()))
+				   .thenReturn(Optional.empty());
+		
+		//then
+		assertThrows(objectNotFoundException.class, 
+						()-> plantService.deleteById(expectedDeletedPlantDto.getId()));
+	}
+	
 	
 	
 	
