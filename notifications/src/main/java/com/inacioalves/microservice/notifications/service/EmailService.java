@@ -38,7 +38,7 @@ public class EmailService {
 				"você precisa regar sua planta "+
 				notifyConversion.getTypePlants()+
 				" as "+
-				notifyConversion.getWater());
+				notifyConversion.getTime_to_water());
 		
 		try {
 			SimpleMailMessage message = new SimpleMailMessage();

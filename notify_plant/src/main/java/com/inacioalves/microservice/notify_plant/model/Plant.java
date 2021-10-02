@@ -31,6 +31,6 @@ public class Plant {
 	private String name;
 	private String emailTo;
 	private String typePlants;
-	private String  water;
+	private String  time_to_water;
 
 }

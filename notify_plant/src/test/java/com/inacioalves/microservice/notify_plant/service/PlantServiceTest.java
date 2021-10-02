@@ -234,14 +234,13 @@ public class PlantServiceTest {
 	}
 	
 	
-	
-	
 	public static PlantDto createPlant() {
 		return PlantDto.builder()
+						.id(1L)
 						.name("nome")
 						.emailTo("email@gmail.com")
 						.typePlants("plant")
-						.water("14:53")
+						.time_to_water("10:58")
 						.build();
 	}
 	

@@ -24,7 +24,6 @@ public class PlantDto {
 	
 	private Long id;
 	@NotBlank(message = "Nome é obrigatório")
-	@Length(max = 80, min = 10)
 	private String name;
 	@NotBlank(message = "Email é obrigatório")
 	@Email(message = "Informe um email correto")
@@ -33,7 +32,7 @@ public class PlantDto {
 	private String typePlants;
     @NotBlank(message = "Tipo da water é obrigatório")
     @Length(max = 5, min = 4)
-	private String  water;
+	private String  time_to_water;
 
 	
 	

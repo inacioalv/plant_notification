@@ -42,7 +42,7 @@ public class NotifyController {
 				notifyConversion.getName(),
 				notifyConversion.getEmailTo(),
 				notifyConversion.getTypePlants(),
-				notifyConversion.getWater()
+				notifyConversion.getTime_to_water()
 				);
 	}
 	

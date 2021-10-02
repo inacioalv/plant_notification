@@ -108,7 +108,7 @@ public class PlantRepositoryTest {
 						.name("nome")
 						.emailTo("email@gmail.com")
 						.typePlants("plant")
-						.water("14:53")
+						.time_to_water("14:53")
 						.build();
 	}
 
