@@ -1,84 +1,239 @@
 package com.inacioalves.microservice.notify_plant.controller;
 
-import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
-import static io.restassured.module.mockmvc.RestAssuredMockMvc.standaloneSetup;
+import static com.inacioalves.microservice.notify_plant.utils.JsonConvertionUtils.asJsonString;
+import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.ArrayList;
+import java.util.Collections;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
+
 
 import com.inacioalves.microservice.notify_plant.dto.PlantDto;
 import com.inacioalves.microservice.notify_plant.exeption.objectNotFoundException;
 import com.inacioalves.microservice.notify_plant.service.PlantService;
+import com.inacioalves.microservice.notify_plant.service.PlantServiceTest;
 
-import io.restassured.http.ContentType;
 
-@WebMvcTest
+@ExtendWith(MockitoExtension.class)
 public class PlantControllerTest {
 	
-	@Autowired
-	private PlantController controller;
+	private static String API_URL_PATH="/plant";
+	private static final long VALID_PLANT_ID = 1L;
+    private static final long INVALID_PLANT_ID = 2l;
+
+	private MockMvc mockMvc;
 	
-	@MockBean
+	@Mock
 	private PlantService plantService;
 	
-	@Autowired
-	MockMvc mvc;
+	@InjectMocks
+	private PlantController controller;
+	
 	
 	
 	@BeforeEach
 	public void setup() {
-		standaloneSetup(controller);
+		mockMvc= MockMvcBuilders.standaloneSetup(controller)
+				.setCustomArgumentResolvers(new PageableHandlerMethodArgumentResolver())
+				.setViewResolvers((s,locale) -> new MappingJackson2JsonView())
+				.build();
 	}
 	
 	@Test
-	public void shouldreturnsuccess_when_searchingListplant() throws objectNotFoundException {
+	public void whenPOSTIsCalledThenAPlantIsCreated() throws Exception {
+		PlantDto plantDto = PlantServiceTest.createPlant();
 		
-		when(this.plantService.listAll())
-			.thenReturn(new ArrayList<PlantDto>());
+		//when
+		when(plantService.createPlant(plantDto)).thenReturn(plantDto);
+		
+		//then
+		mockMvc.perform(post(API_URL_PATH)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(asJsonString(plantDto)))
+				.andExpect(status().isCreated())
+				.andExpect(jsonPath("$.name",is(plantDto.getName())))
+				.andExpect(jsonPath("$.emailTo",is(plantDto.getEmailTo())))
+				.andExpect(jsonPath("$.typePlants",is(plantDto.getTypePlants())))
+				.andExpect(jsonPath("$.time_to_water",is(plantDto.getTime_to_water())));
+		
+	}
 	
-		given()
-				.accept(ContentType.JSON)
-		.when()
-				.get("/plant/all")
-		.then()
-				.statusCode(HttpStatus.OK.value());
+	@Test
+	public void WhenToCreateToPlantThisIsCalledValidationNameThenHeMustReturnBadRequestedStatus() throws Exception {
+		PlantDto plantDto = PlantServiceTest.createPlant();
+		plantDto.setName(null);
+		
+		//the
+		mockMvc.perform(post(API_URL_PATH)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(asJsonString(plantDto)))
+				.andExpect(status().isBadRequest());
+			
+	}
+	
+	@Test
+	public void WhenToCreateToPlantThisIsCalledValidationEmailThenHeMustReturnBadRequestedStatus() throws Exception {
+		PlantDto plantDto = PlantServiceTest.createPlant();
+		plantDto.setEmailTo(null);
+		
+		//the
+		mockMvc.perform(post(API_URL_PATH)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(asJsonString(plantDto)))
+				.andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void WhenToCreateToPlantThisIsCalledValidationEmailNotValidThenHeMustReturnBadRequestedStatus() throws Exception {
+		PlantDto plantDto = PlantServiceTest.createPlant();
+		plantDto.setEmailTo("Email invalid");
+		
+		//the
+		mockMvc.perform(post(API_URL_PATH)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(asJsonString(plantDto)))
+				.andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void WhenToCreateToPlantThisIsCalledValidationTypePlantsThenHeMustReturnBadRequestedStatus() throws Exception {
+		PlantDto plantDto = PlantServiceTest.createPlant();
+		plantDto.setTypePlants(null);
+		
+		//the
+		mockMvc.perform(post(API_URL_PATH)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(asJsonString(plantDto)))
+				.andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void WhenToCreateToPlantThisIsCalledValidationWaterThenHeMustReturnBadRequestedStatus() throws Exception {
+		PlantDto plantDto = PlantServiceTest.createPlant();
+		plantDto.setTime_to_water(null);
+		
+		//the
+		mockMvc.perform(post(API_URL_PATH)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(asJsonString(plantDto)))
+				.andExpect(status().isBadRequest());
+	}
+	
+	@Test 
+	public void WaterTobeBiggerWhat5ThenHeHemustReturnBadRequestedStatus() throws Exception {
+		PlantDto plantDto = PlantServiceTest.createPlant();
+		plantDto.setTime_to_water("10:500");
+		
+		//the
+		mockMvc.perform(post(API_URL_PATH)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(asJsonString(plantDto)))
+				.andExpect(status().isBadRequest());
+	}
+	
+	@Test 
+	public void WaterTobeSmallerWhat4ThenHeHemustReturnBadRequestedStatus() throws Exception {
+		PlantDto plantDto = PlantServiceTest.createPlant();
+		plantDto.setTime_to_water("4");
+		
+		//the
+		mockMvc.perform(post(API_URL_PATH)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(asJsonString(plantDto)))
+				.andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void  whenGETIsCalledWithValid_Id_ThenOkStatusIsReturned() throws Exception {
+		PlantDto plantDto = PlantServiceTest.createPlant();
+		
+		//when
+		when(plantService.findById(plantDto.getId())).thenReturn(plantDto);
+		
+		//then
+		mockMvc.perform(MockMvcRequestBuilders.get(API_URL_PATH+"/"+plantDto.getId())
+				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.name", is(plantDto.getName())))
+				.andExpect(jsonPath("$.emailTo", is(plantDto.getEmailTo())));
 	}
 	
 	
 	@Test
-	public void return_success_when_searching_plantById() throws objectNotFoundException {
-
-		when(this.plantService.findById(1L))
-		.thenReturn(extracted());
-	
-		given()
-				.accept(ContentType.JSON)
-		.when()
-				.get("/plant/{id}",1L)
-		.then()
-				.statusCode(HttpStatus.OK.value());
-	}
-
-	static final MediaType JSON = MediaType.APPLICATION_JSON;
-
-
-	private PlantDto extracted() {
-		return new PlantDto(1L,"nome","email@gmail.com","plant","14:54");
+	public void whenGETListWithPlantIsCalledThenOkStatusIsReturned() throws Exception {
+		//given
+		PlantDto plantDto = PlantServiceTest.createPlant();
+		
+		//then
+		when(plantService.listAll()).thenReturn(Collections.singletonList(plantDto));
+		
+		mockMvc.perform(MockMvcRequestBuilders.get(API_URL_PATH+"/all")
+				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$[0].name", is(plantDto.getName())))
+				.andExpect(jsonPath("$[0].emailTo", is(plantDto.getEmailTo())));
 	}
 	
 	
+	@Test
+	public void whenGETListWithoutPlantsIsCalledThenOkStatusIsReturned() throws Exception {
+		//given
+		PlantDto plantDto = PlantServiceTest.createPlant();
+		
+		//then
+		when(plantService.listAll()).thenReturn(Collections.singletonList(plantDto));
+		
+		//then
+		mockMvc.perform(MockMvcRequestBuilders.get(API_URL_PATH+"/all")
+				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk());
+	}
+	
+	@Test
+	public void whenDELETEIsCalledWithValidIdThenNoContentStatusIsReturned() throws Exception {
+		//given
+		PlantDto plantDto = PlantServiceTest.createPlant();
+		
+		//when
+		doNothing().when(plantService).deleteById(plantDto.getId());
+		
+		//then
+		mockMvc.perform(MockMvcRequestBuilders.delete(API_URL_PATH+"/"+plantDto.getId())
+				.contentType(MediaType.APPLICATION_JSON))
+        		.andExpect(status().isNoContent());
+	}
 	
 	
-	
+//	@Test
+//	public void whenDELETEIsCalledWithInvalidIdThenNotFoundStatusIsReturned() throws Exception {
+//		//when
+//    	doThrow(objectNotFoundException.class).when(plantService).deleteById(INVALID_PLANT_ID);
+//   
+//    
+//    	//THEN
+//    	 mockMvc.perform(MockMvcRequestBuilders.delete(API_URL_PATH + "/" + INVALID_PLANT_ID)
+//                 .contentType(MediaType.APPLICATION_JSON))
+//                 .andExpect(status().isNotFound());
+//		
+//	}
+//    
 	
 	
 
