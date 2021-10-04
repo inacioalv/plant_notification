@@ -3,7 +3,6 @@ package com.inacioalves.microservice.notify_plant.controller;
 import static com.inacioalves.microservice.notify_plant.utils.JsonConvertionUtils.asJsonString;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -26,17 +25,15 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 
 import com.inacioalves.microservice.notify_plant.dto.PlantDto;
-import com.inacioalves.microservice.notify_plant.exeption.objectNotFoundException;
 import com.inacioalves.microservice.notify_plant.service.PlantService;
 import com.inacioalves.microservice.notify_plant.service.PlantServiceTest;
+
 
 
 @ExtendWith(MockitoExtension.class)
 public class PlantControllerTest {
 	
 	private static String API_URL_PATH="/plant";
-	private static final long VALID_PLANT_ID = 1L;
-    private static final long INVALID_PLANT_ID = 2l;
 
 	private MockMvc mockMvc;
 	
@@ -75,6 +72,7 @@ public class PlantControllerTest {
 		
 	}
 	
+
 	@Test
 	public void WhenToCreateToPlantThisIsCalledValidationNameThenHeMustReturnBadRequestedStatus() throws Exception {
 		PlantDto plantDto = PlantServiceTest.createPlant();
@@ -175,7 +173,6 @@ public class PlantControllerTest {
 				.andExpect(jsonPath("$.emailTo", is(plantDto.getEmailTo())));
 	}
 	
-	
 	@Test
 	public void whenGETListWithPlantIsCalledThenOkStatusIsReturned() throws Exception {
 		//given
@@ -190,7 +187,6 @@ public class PlantControllerTest {
 				.andExpect(jsonPath("$[0].name", is(plantDto.getName())))
 				.andExpect(jsonPath("$[0].emailTo", is(plantDto.getEmailTo())));
 	}
-	
 	
 	@Test
 	public void whenGETListWithoutPlantsIsCalledThenOkStatusIsReturned() throws Exception {
@@ -219,22 +215,6 @@ public class PlantControllerTest {
 				.contentType(MediaType.APPLICATION_JSON))
         		.andExpect(status().isNoContent());
 	}
-	
-	
-//	@Test
-//	public void whenDELETEIsCalledWithInvalidIdThenNotFoundStatusIsReturned() throws Exception {
-//		//when
-//    	doThrow(objectNotFoundException.class).when(plantService).deleteById(INVALID_PLANT_ID);
-//   
-//    
-//    	//THEN
-//    	 mockMvc.perform(MockMvcRequestBuilders.delete(API_URL_PATH + "/" + INVALID_PLANT_ID)
-//                 .contentType(MediaType.APPLICATION_JSON))
-//                 .andExpect(status().isNotFound());
-//		
-//	}
-//    
-	
 	
 
 }

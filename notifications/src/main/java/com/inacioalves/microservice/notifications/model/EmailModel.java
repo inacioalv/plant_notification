@@ -14,12 +14,17 @@ import javax.persistence.Table;
 
 import com.inacioalves.microservice.notifications.enums.StatusEmail;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-
+@Builder
 @Data
 @Entity
 @Table(name="TB_EMAIL")
+@AllArgsConstructor
+@NoArgsConstructor
 public class EmailModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
