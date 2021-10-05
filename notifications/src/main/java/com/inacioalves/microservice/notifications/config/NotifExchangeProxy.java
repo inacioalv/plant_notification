@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.inacioalves.microservice.notifications.model.Notify;
 
 
-@FeignClient(name="plant",url="localhost:8000")
+@FeignClient(name="plant")
 public interface NotifExchangeProxy {
 	
 	@GetMapping("/plant/{id}")
